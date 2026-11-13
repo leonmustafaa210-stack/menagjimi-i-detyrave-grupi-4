@@ -1,0 +1,479 @@
+:root {
+  color-scheme: light;
+  --ink: #202b38;
+  --muted: #78838b;
+  --green: #357c65;
+  --green-dark: #28644f;
+  --green-pale: #e8f2ed;
+  --line: #e9ece8;
+  --paper: #ffffff;
+  --canvas: #f7f8f5;
+  --shadow: 0 16px 45px rgb(34 51 44 / 7%);
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+/* Rregulla bazë të përbashkëta për të gjitha faqet dhe kontrollet. */
+* { box-sizing: border-box; }
+
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+
+.topbar {
+  height: 72px;
+  padding: 0 5.2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper);
+  border-bottom: 1px solid #eef0ed;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--ink);
+  font: 800 19px "Manrope", "Segoe UI", sans-serif;
+  text-decoration: none;
+  letter-spacing: -.5px;
+}
+
+.brand-mark {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--green);
+  border-radius: 12px 12px 12px 4px;
+  font-size: 17px;
+}
+
+.topbar-note { color: var(--muted); font-size: 13px; }
+.user-actions { display: flex; align-items: center; gap: 16px; }
+.user-label { color: #647169; font-size: 12px; }
+.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: calc(100vh - 72px); }
+
+/* Pamja e hyrjes dhe regjistrimit para kyçjes së përdoruesit. */
+.auth-panel {
+  width: min(1050px, calc(100% - 48px));
+  min-height: 570px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 400px);
+  gap: clamp(35px, 7vw, 90px);
+  align-items: center;
+  margin: 55px auto;
+  padding: clamp(25px, 5vw, 60px);
+  background: #edf4ee;
+  border: 1px solid #e6eee7;
+  border-radius: 25px;
+}
+
+.auth-welcome { max-width: 470px; }
+.auth-welcome h1 { margin: 0; font: 800 clamp(32px, 4vw, 48px) "Manrope", "Segoe UI", sans-serif; line-height: 1.12; letter-spacing: -1.7px; }
+.auth-welcome > p:not(.eyebrow) { margin: 19px 0; color: #6f7d75; font-size: 15px; line-height: 1.8; }
+.auth-benefits { display: grid; gap: 12px; margin-top: 25px; color: #47745b; font-size: 13px; font-weight: 600; }
+.auth-card { gap: 11px; padding: 27px; background: var(--paper); }
+.auth-card > .eyebrow { margin-bottom: -5px; }
+.auth-card h2 { margin: 0 0 8px; font: 700 21px "Manrope", "Segoe UI", sans-serif; letter-spacing: -.5px; }
+.auth-card form { display: grid; gap: 10px; }
+.auth-card form label { margin-top: 4px; color: #47544c; font-size: 12px; font-weight: 600; }
+.auth-card form input, .auth-card form select, .form-card select, .join-class-controls input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: #fbfcfa;
+  border: 1px solid #e3e9e3;
+  border-radius: 10px;
+  outline: none;
+  font-size: 13px;
+}
+.auth-card form input:focus, .auth-card form select:focus, .form-card select:focus, .join-class-controls input:focus {
+  border-color: #75a68c;
+  box-shadow: 0 0 0 3px rgb(75 136 101 / 11%);
+}
+.auth-submit { width: 100%; margin-top: 8px; }
+.auth-switch { margin: 8px 0 0; color: var(--muted); text-align: center; font-size: 12px; }
+.inline-button { padding: 0; color: var(--green-dark); background: transparent; border: 0; font: inherit; font-weight: 700; }
+.inline-button:hover { text-decoration: underline; }
+
+/* Navigimi anësor dhe lista e klasave të përdoruesit. */
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 39px 24px 24px;
+  background: #fbfcfa;
+  border-right: 1px solid #ecefea;
+}
+
+.sidebar-heading, .section-heading, .dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #84928a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.sidebar h1, .section-heading h3, .dialog-heading h2 {
+  margin: 0;
+  font: 700 22px "Manrope", "Segoe UI", sans-serif;
+  letter-spacing: -.7px;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: var(--green-pale);
+  border: 0;
+  border-radius: 12px;
+  font-size: 23px;
+  transition: background .2s, transform .2s;
+}
+
+.icon-button:hover { background: #dcebe3; transform: translateY(-1px); }
+
+.new-course-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 31px 0 18px;
+  padding: 12px 13px;
+  color: var(--green-dark);
+  background: var(--green-pale);
+  border: 0;
+  border-radius: 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.join-class-form {
+  display: grid;
+  gap: 8px;
+  margin: 25px 0 17px;
+}
+.join-class-form label { color: #47544c; font-size: 12px; font-weight: 600; }
+.join-class-controls { display: flex; gap: 8px; }
+.join-class-controls input { min-width: 0; text-transform: uppercase; }
+.join-class-controls .icon-button { flex: 0 0 42px; }
+
+.course-list { display: grid; gap: 8px; }
+
+.course-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 11px 10px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  text-align: left;
+  transition: background .2s;
+}
+
+.course-item:hover, .course-item.active { background: #eef3ef; }
+
+.course-icon {
+  flex: 0 0 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--green-dark);
+  background: #e5eee8;
+  border-radius: 11px;
+  font: 700 15px "Manrope", sans-serif;
+}
+
+.course-meta { min-width: 0; display: grid; gap: 3px; }
+.course-meta strong { overflow: hidden; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.course-meta small { color: var(--muted); font-size: 11px; }
+
+/* Zona e përmbajtjes, kartat e klasës dhe titujt. */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 22px 4px 2px;
+  color: #9aa39d;
+  font-size: 11px;
+}
+
+.main-content { width: min(100%, 1120px); margin: 0 auto; padding: 52px 6.5% 80px; }
+
+.welcome-panel {
+  position: relative;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 54px 7%;
+  background: #edf4ee;
+  border: 1px solid #e6eee7;
+  border-radius: 25px;
+}
+
+.welcome-copy { position: relative; z-index: 1; width: min(58%, 470px); }
+.welcome-copy h2, .class-banner h2 {
+  margin: 0;
+  font: 800 clamp(28px, 3.2vw, 42px) "Manrope", "Segoe UI", sans-serif;
+  line-height: 1.15;
+  letter-spacing: -1.6px;
+}
+
+.welcome-copy > p:not(.eyebrow) { max-width: 370px; margin: 17px 0 24px; color: #6f7d75; font-size: 15px; line-height: 1.7; }
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 18px;
+  color: #fff;
+  background: var(--green);
+  border: 0;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
+
+.primary-button:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+.welcome-art {
+  position: absolute;
+  right: 3%;
+  bottom: -34px;
+  width: 40%;
+  height: 94%;
+  display: grid;
+  place-items: center;
+  border-radius: 48% 48% 0 0;
+  background: #dceae0;
+  transform: rotate(-6deg);
+}
+
+.art-sun { position: absolute; top: 24px; right: 38px; width: 48px; height: 48px; background: #e6c982; border-radius: 50%; }
+.art-book, .banner-book {
+  display: grid;
+  place-items: center;
+  width: 145px;
+  height: 155px;
+  color: #fff;
+  background: #4c846c;
+  border: 9px solid #f6f2e6;
+  border-radius: 13px 22px 22px 13px;
+  box-shadow: 12px 15px 25px rgb(52 83 63 / 15%);
+  font: 800 42px "Manrope", sans-serif;
+  transform: rotate(9deg);
+}
+
+.class-banner {
+  position: relative;
+  min-height: 218px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 38px 6%;
+  color: white;
+  background: linear-gradient(118deg, #38745e 0%, #569174 66%, #78a687 100%);
+  border-radius: 23px;
+}
+
+.class-banner .eyebrow { color: #d0e4d8; }
+.class-banner h2 { font-size: clamp(26px, 3vw, 36px); }
+.class-banner-copy > p:last-child { margin: 12px 0 0; color: #e2eee6; font-size: 14px; }
+.banner-book { position: absolute; right: 8%; width: 103px; height: 113px; border-width: 7px; color: #39745e; background: #f6efdb; font-size: 31px; transform: rotate(7deg); }
+
+.class-description { margin: 18px 4px 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.class-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 18px;
+  padding: 14px 17px;
+  color: #577164;
+  background: #edf4ee;
+  border: 1px solid #e2ece4;
+  border-radius: 13px;
+  font-size: 12px;
+}
+.class-code-box strong { flex: 0 0 auto; color: var(--green-dark); font-size: 18px; letter-spacing: 2px; }
+.section-heading { margin: 39px 0 17px; }
+.section-heading .eyebrow { margin-bottom: 5px; }
+.section-heading h3 { font-size: 21px; }
+
+/* Detyrat dhe përgjigjet që dorëzohen brenda një klase. */
+.assignment-list { display: grid; gap: 12px; }
+.assignment-card {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  gap: 15px;
+  align-items: center;
+  padding: 18px 19px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 5px 16px rgb(34 51 44 / 3%);
+}
+
+.assignment-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: var(--green-pale);
+  border-radius: 13px;
+  font-size: 18px;
+}
+
+.assignment-copy { min-width: 0; }
+.student-assignment-card { align-items: start; }
+.submission-count { color: var(--muted); font-size: 11px; text-align: right; }
+.submission-panel { grid-column: 2 / -1; width: 100%; }
+.submission-panel summary { width: fit-content; color: var(--green-dark); cursor: pointer; font-size: 12px; font-weight: 600; }
+.submission-results { display: grid; gap: 9px; margin-top: 12px; }
+.submission-item { display: grid; gap: 5px; padding: 13px; background: #f8faf8; border: 1px solid var(--line); border-radius: 12px; }
+.submission-item strong { font-size: 12px; }
+.submission-item > span, .submission-item small, .submission-time { color: var(--muted); font-size: 11px; }
+.submission-item p { margin: 4px 0; color: #47544c; font-size: 12px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.answer-form { grid-column: 1 / -1; display: grid; gap: 9px; width: 100%; margin-top: 4px; }
+.answer-form label { color: #47544c; font-size: 12px; font-weight: 600; }
+.answer-form textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 11px 12px;
+  resize: vertical;
+  color: var(--ink);
+  background: #fbfcfa;
+  border: 1px solid #e3e9e3;
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.answer-form textarea:focus { border-color: #75a68c; box-shadow: 0 0 0 3px rgb(75 136 101 / 11%); }
+.answer-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.submission-status { color: #8c7652; font-size: 11px; font-weight: 600; }
+.submission-status.submitted { color: #327457; }
+.assignment-copy h4 { margin: 0 0 5px; font-size: 14px; }
+.assignment-copy p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.assignment-copy .due-date { margin-top: 7px; color: #89948d; font-size: 11px; }
+
+.status-button {
+  min-width: 118px;
+  padding: 9px 11px;
+  color: #66716a;
+  background: #f3f5f2;
+  border: 0;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-button.completed { color: #327457; background: #e8f3ec; }
+.empty-state { padding: 38px 20px; color: var(--muted); background: #fff; border: 1px dashed #dce3dd; border-radius: 16px; text-align: center; font-size: 13px; }
+
+/* Formularët e krijimit të klasave dhe detyrave. */
+.form-card {
+  display: grid;
+  gap: 10px;
+  padding: 21px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.form-card h3 { margin: 0 0 5px; font: 700 17px "Manrope", sans-serif; }
+.form-card label { margin-top: 5px; color: #47544c; font-size: 12px; font-weight: 600; }
+.form-card input, .form-card textarea {
+  width: 100%;
+  padding: 11px 12px;
+  color: var(--ink);
+  background: #fbfcfa;
+  border: 1px solid #e3e9e3;
+  border-radius: 10px;
+  outline: none;
+  font-size: 13px;
+}
+
+.form-card textarea { resize: vertical; }
+.form-card input:focus, .form-card textarea:focus { border-color: #75a68c; box-shadow: 0 0 0 3px rgb(75 136 101 / 11%); }
+.optional { color: #9aa39d; font-weight: 400; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+.text-button { padding: 0 13px; color: #6d7870; background: transparent; border: 0; font-size: 13px; font-weight: 600; }
+.text-button:hover { color: var(--ink); }
+
+.course-dialog { width: min(460px, calc(100% - 32px)); max-width: none; padding: 0; overflow: visible; background: transparent; border: 0; }
+.course-dialog::backdrop { background: rgb(24 37 30 / 45%); backdrop-filter: blur(3px); }
+.dialog-card { gap: 12px; padding: 27px; border-radius: 19px; }
+.dialog-heading { margin-bottom: 7px; }
+.dialog-heading h2 { font-size: 21px; }
+.dialog-heading .eyebrow { margin-bottom: 5px; }
+.close-button { color: #66716a; background: #f1f3f0; font-size: 21px; }
+.toast { position: fixed; right: 24px; bottom: 24px; z-index: 5; max-width: min(380px, calc(100% - 32px)); padding: 13px 17px; color: #fff; background: #27372e; border-radius: 12px; box-shadow: var(--shadow); font-size: 13px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity .2s, transform .2s; }
+.toast.visible { opacity: 1; transform: translateY(0); }
+
+/* Riorganizo faqen në një kolonë të përshtatshme për telefona. */
+@media (max-width: 760px) {
+  .topbar { height: 64px; padding: 0 20px; }
+  .topbar-note { font-size: 11px; }
+  .user-actions { gap: 9px; }
+  .user-label { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .auth-panel { width: calc(100% - 32px); min-height: auto; grid-template-columns: 1fr; gap: 25px; margin: 24px auto; padding: 26px 20px; border-radius: 19px; }
+  .auth-welcome h1 { font-size: 33px; }
+  .auth-welcome > p:not(.eyebrow) { font-size: 13px; }
+  .auth-benefits { grid-template-columns: 1fr; gap: 8px; margin-top: 15px; font-size: 12px; }
+  .auth-card { padding: 21px; }
+  .layout { grid-template-columns: 1fr; min-height: calc(100vh - 64px); }
+  .sidebar { padding: 20px 20px 14px; border-right: 0; border-bottom: 1px solid #ecefea; }
+  .sidebar-heading { align-items: center; }
+  .sidebar h1 { font-size: 19px; }
+  .new-course-link { display: none; }
+  .course-list { display: flex; gap: 7px; overflow-x: auto; margin: 15px -4px 0; padding: 2px 4px 5px; }
+  .join-class-form { margin: 15px 0 5px; }
+  .course-item { flex: 0 0 auto; width: max-content; max-width: 220px; padding: 7px; }
+  .course-icon { flex-basis: 32px; height: 32px; }
+  .course-meta small { display: none; }
+  .sidebar-footer { display: none; }
+  .main-content { padding: 27px 20px 55px; }
+  .welcome-panel { min-height: 330px; padding: 38px 28px; }
+  .welcome-copy { width: 75%; }
+  .welcome-art { right: -15%; width: 48%; opacity: .7; }
+  .art-book { width: 100px; height: 115px; font-size: 32px; }
+  .class-banner { min-height: 185px; padding: 30px 25px; }
+  .banner-book { right: 6%; width: 75px; height: 85px; border-width: 5px; font-size: 25px; }
+  .assignment-card { grid-template-columns: 36px minmax(0, 1fr); gap: 11px; padding: 15px; }
+  .assignment-icon { width: 36px; height: 36px; }
+  .submission-count { grid-column: 2; grid-row: 2; text-align: left; }
+  .submission-panel { grid-column: 1 / -1; }
+  .answer-form { grid-column: 1 / -1; }
+  .class-code-box { align-items: flex-start; }
+  .class-code-box strong { font-size: 16px; }
+}
+
+/* Zvogëlo animacionet kur përdoruesi preferon lëvizje të reduktuar. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
